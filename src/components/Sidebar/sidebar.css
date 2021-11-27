@@ -1,0 +1,12 @@
+.sidebar-container{
+    height: 100vh;
+    width: 20%;
+    min-width: 200px;
+    background-color: white;
+    box-shadow: 1px 1px 10px #e6e6e6;
+}
+
+.sidebar-container h2{
+    text-align: center;
+    padding-top: 10px;
+}

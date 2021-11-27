@@ -1,0 +1,6 @@
+.calendar-container{
+    background-color: white;
+    box-shadow: 1px 1px 10px #e6e6e6;
+    height: 500px;
+    width: 500px;
+}
