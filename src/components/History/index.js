@@ -1,46 +1,17 @@
-import React, {useEffect, useState} from 'react'
-import './history.css'
+import React, {useEffect, useState, useContext} from 'react'
 import api from '../../services/api'
 import { format, parseISO } from 'date-fns'
+import { Link } from 'react-router-dom'
+import { dataContext } from '../../context'
+import './history.css'
+
 
 
 const History = () => {
 
-    //states
-    const [appointmentsInfo, setAppointmentsInfo] = useState(null)
-    const [patientsInfo, setPatientsInfo] = useState(null)
+    const {appointmentsInfo, patientsInfo} = useContext(dataContext)
 
 
-    useEffect(() =>{ //get data from the appointments when component loads
-
-        async function loadAppointmentsData(){
-            const response = await api.get('/appointments')
-            const appointments = response.data
-            sortInfoByData(appointments); 
-            setAppointmentsInfo(appointments);
-        }
-
-        function sortInfoByData(appointments){ //sort the array of appointments by date 
-            appointments.sort((a, b) => {
-                return new Date(a.startTime) - new Date(b.startTime)
-            })
-        }
-
-        loadAppointmentsData();
-    }, [])
-
-
-    useEffect(() =>{ //get data from the patients when component loads
-
-        async function loadPatientsData(){
-            const response = await api.get('./patients')
-            const patients = response.data
-            setPatientsInfo(patients)
-        }
-        loadPatientsData();
-    }, [])
-
-    
     if(!appointmentsInfo || !patientsInfo){
         return(
             <div>
@@ -48,7 +19,8 @@ const History = () => {
             </div>
         )
     }
-
+    console.log(appointmentsInfo);
+    console.log(patientsInfo);
 
     return (
         <div className='history-container' >
@@ -72,10 +44,29 @@ const History = () => {
                         if(data < today){
                             return(
                                 <tr className='table-row' key={index} >
-                                    <td> {formatedData} </td>
-                                    <td> {item.status} </td>
-                                    <td> {patientsInfo[item.patientId - 1].name} </td>
-                                    <td> {item.type} </td>
+                                    <td>
+                                        <Link key={index} to={`/details/${item.patientId}`}>
+                                            {formatedData} 
+                                        </Link>
+                                    </td>
+
+                                    <td>
+                                        <Link key={index} to={`/details/${item.patientId}`}>
+                                            {item.status} 
+                                        </Link>
+                                    </td>
+
+                                    <td>
+                                        <Link key={index} to={`/details/${item.patientId}`}>
+                                            {patientsInfo[item.patientId - 1].name}
+                                        </Link>
+                                    </td>
+
+                                    <td>
+                                        <Link key={index} to={`/details/${item.patientId}`}>
+                                            {item.type} 
+                                        </Link>
+                                    </td>
                                 </tr>
                             )
                         }
