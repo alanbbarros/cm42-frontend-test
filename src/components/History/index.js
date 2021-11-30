@@ -19,8 +19,7 @@ const History = () => {
             </div>
         )
     }
-    console.log(appointmentsInfo);
-    console.log(patientsInfo);
+
 
     return (
         <div className='history-container' >

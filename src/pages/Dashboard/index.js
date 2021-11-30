@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useState} from 'react'
 import { dataContext } from '../../context'
 import Sidebar from '../../components/Sidebar'
 import Calendar from '../../components/Calendar'
@@ -13,11 +13,12 @@ const Dashboard = () => {
     useEffect(() =>{
 
         async function loadAppointmentsInfo(){
-            const response = await api.get('/appointments')
-            const appointments = response.data
-            sortInfoByData(appointments)
-            setAppointmentsInfo(appointments)
-
+            await api.get('/appointments')
+            .then((response) =>{
+                const appointments = response.data
+                sortInfoByData(appointments)
+                setAppointmentsInfo(appointments)
+            })
         }
 
         function sortInfoByData(appointments){ 
@@ -27,16 +28,25 @@ const Dashboard = () => {
         }
 
         loadAppointmentsInfo();
+        return() =>{
+
+        }
     }, [])
 
     useEffect(() =>{
 
         async function loadPatientsInfo(){
-            const response = await api.get('/patients')
-            setPatientsInfo(response.data)
+            await api.get('/patients')
+            .then((response) =>{
+                setPatientsInfo(response.data)
+            })
         }
         loadPatientsInfo();
+        return() =>{
+            
+        }
     }, [])
+
 
     return (
         <div className='dashboard-container' >
@@ -45,6 +55,7 @@ const Dashboard = () => {
             </div>
 
             <div className='right' >
+                <h2>Dashboard</h2>
                 <Calendar />
                 <History />
             </div>
