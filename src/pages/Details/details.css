@@ -1,3 +1,24 @@
 .details-container{
     display: flex;
 }
+
+.details-right{
+    margin: 0 auto;
+}
+
+.details-right h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.patientcard-container{
+    display: flex;
+    width: calc(100vw - 230px);
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.patientcard-container>*{
+    flex: 1 1 250px
+}
+

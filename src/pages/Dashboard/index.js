@@ -18,6 +18,7 @@ const Dashboard = () => {
                 const appointments = response.data
                 sortInfoByData(appointments)
                 setAppointmentsInfo(appointments)
+                localStorage.setItem('AppointmentsInfo', JSON.stringify(appointments))
             })
         }
 
@@ -28,9 +29,7 @@ const Dashboard = () => {
         }
 
         loadAppointmentsInfo();
-        return() =>{
 
-        }
     }, [])
 
     useEffect(() =>{
@@ -39,12 +38,12 @@ const Dashboard = () => {
             await api.get('/patients')
             .then((response) =>{
                 setPatientsInfo(response.data)
+                localStorage.setItem('PatientsInfo', JSON.stringify(response.data))
+
             })
         }
         loadPatientsInfo();
-        return() =>{
-            
-        }
+
     }, [])
 
 

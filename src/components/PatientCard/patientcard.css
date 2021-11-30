@@ -1,0 +1,20 @@
+.card{
+    background-color: white;
+    box-shadow: 1px 1px 10px #e6e6e6;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    height: 200px;
+}
+
+.card div{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.card h2{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
