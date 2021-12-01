@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
+import { format, parseISO } from 'date-fns'
 import './tabs.css'
 
-const Tabs = () => {
+const Tabs = ({history, upcoming, recent}) => {
 
     const [toggleValue, setToggleValue] = useState(1)
 
@@ -21,16 +22,46 @@ const Tabs = () => {
             <div className='tabs-body' >
 
                 <div className={toggleValue === 1 ? 'active-content' : 'content'} >
-                <p>content tab 1</p>  
+                    <div>
+                        {
+                            recent.map((item, index) =>{
+                                return(
+                                    <div>
+                                        <span> {format(parseISO(item.startTime), "MM/dd/yyyy")} </span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div> 
                 </div>
 
                 <div className={toggleValue === 2 ? 'active-content' : 'content'} >
-                    <p>content tab 2</p>  
+                    <div className='' >
+                    {
+                        upcoming.map((item, index, array) =>{
+                            return(
+                                <div key={index} >
+                                    <span> {format(parseISO(item.startTime), "MM/dd/yyyy")} </span>
+                                </div>
+                            )
+                        })
+                    } 
+                    </div>
 
                 </div>
 
                 <div className={toggleValue === 3 ? 'active-content' : 'content'} >
-                    <p>content tab 3</p>  
+                    <div className='patienthistory-container' >
+                    {
+                        history.map((item, index) =>{
+                            return(
+                                <div key={index} >
+                                    <span> {format(parseISO(item.startTime), "MM/dd/yyyy")} </span>
+                                </div>
+                            )
+                        })
+                    } 
+                    </div>
                 </div>
 
             </div>

@@ -13,23 +13,52 @@ const Details = () => {
 
     const {id} = useParams()
     const {setPatientsInfo, patientsInfo, appointmentsInfo, setAppointmentsInfo} = useContext(dataContext)
-    const [patientAppointments, setPatientAppointments] = useState([]) 
+
+    const [patientAppointments, setPatientAppointments] = useState(null)
+    const [patientPastAppointments, setPatientPastAppointments] = useState(null); 
+    const [patientUpcomingAppointments, setPatientUpcomingAppointments] = useState(null);
 
     useEffect(() =>{
-        const patientsInfo = localStorage.getItem('PatientsInfo')
-        const appInfo = localStorage.getItem('AppointmentsInfo')
 
+        const patientcookies = localStorage.getItem('PatientsInfo')
+        const applicationcookies = localStorage.getItem('AppointmentsInfo')
+        const patientAppointmentCookies = localStorage.getItem(`Patient ${id} appointment`)
 
-        if(patientsInfo && appInfo){
-            setPatientsInfo(JSON.parse(patientsInfo))
-            setAppointmentsInfo(JSON.parse(appInfo))
+        if(patientcookies && applicationcookies){
+            setPatientsInfo(JSON.parse(patientcookies))
+            setAppointmentsInfo(JSON.parse(applicationcookies))
+        }
+
+        if(patientAppointmentCookies){
+            setPatientAppointments(JSON.parse(patientAppointmentCookies))
+        }
+
+    }, [id])
+
+    useEffect(() =>{ 
+        try{
+            const patientapps = appointmentsInfo.filter(item => item.patientId === Number(id))
+            setPatientAppointments(patientapps)
+    
+            const today = new Date()
+    
+            const history = patientapps.filter(item => (parseISO(item.startTime) < today))
+            setPatientPastAppointments(history)
+    
+            const upcoming = patientapps.filter(item => parseISO(item.startTime) > today)
+            setPatientUpcomingAppointments(upcoming)
+    
+            localStorage.setItem(`Patient ${id} appointment`, JSON.stringify(patientapps))
+        }
+        catch(e){
+            console.log(e);
         }
 
 
-    }, [])
+    }, [id, appointmentsInfo])
 
 
-    if(!patientsInfo || !patientAppointments){
+    if(!patientsInfo || !patientAppointments || !patientPastAppointments){
         return(
             <h1>Loading...</h1>
         )
@@ -77,11 +106,11 @@ const Details = () => {
                     <PatientCard>
                         <div className='card' >
                             <span>Latest App.</span>
-
+                            <h2> {patientPastAppointments[patientPastAppointments.length-1].specialty} </h2>
                         </div>
                     </PatientCard>
                 </div>
-                <Tabs />
+                <Tabs history={patientPastAppointments} upcoming={patientUpcomingAppointments} recent={patientAppointments.slice(0, 3)} />
 
             </div>
 

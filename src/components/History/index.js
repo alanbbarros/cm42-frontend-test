@@ -47,7 +47,7 @@ const History = () => {
                         let minutesStart = getMinutes(data) ? getMinutes(data) : '00' // if the appointment starts at "X:00", transform 0 in 00 for a better display 
 
                         let hoursEnd = item.endTime ? getHours(parseISO(item.endTime)) : null
-                        let minutesEnd = getMinutes(item.endTime) ? getMinutes(item.endTime) : '00'
+                        let minutesEnd = getMinutes(parseISO(item.endTime)) ? getMinutes(parseISO(item.endTime)) : '00'
 
 
                         if(data < today){
