@@ -16,6 +16,10 @@ td{
     text-align: center;
 }
 
+tr{
+    height: 40px;
+}
+
 .empty-col{
     width: 10%;
 }

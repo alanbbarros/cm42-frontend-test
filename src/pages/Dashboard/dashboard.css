@@ -20,7 +20,7 @@ h4{
 }
 
 
-@media screen and (max-width: 558px){
+@media screen and (max-width: 880px){
     .sidebar{
         display: none
     }
