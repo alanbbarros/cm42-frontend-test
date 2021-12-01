@@ -1,4 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react'
+import { nextFriday, previousMonday, format, parseISO, compareAsc } from 'date-fns'
+import {FaBars} from 'react-icons/fa'
 import { dataContext } from '../../context'
 import Sidebar from '../../components/Sidebar'
 import Calendar from '../../components/Calendar'
@@ -8,11 +10,11 @@ import './dashboard.css'
 
 const Dashboard = () => {
 
-    const {setAppointmentsInfo, setPatientsInfo} = useContext(dataContext);
+    const {appointmentsInfo, setAppointmentsInfo, setPatientsInfo, weekAppointments, setWeekAppointments} = useContext(dataContext);
 
     useEffect(() =>{
 
-        async function loadAppointmentsInfo(){
+        async function getAppointmentsInfo(){
             await api.get('/appointments')
             .then((response) =>{
                 const appointments = response.data
@@ -28,13 +30,13 @@ const Dashboard = () => {
             })
         }
 
-        loadAppointmentsInfo();
+        getAppointmentsInfo();
 
     }, [])
 
     useEffect(() =>{
 
-        async function loadPatientsInfo(){
+        async function getPatientsInfo(){
             await api.get('/patients')
             .then((response) =>{
                 setPatientsInfo(response.data)
@@ -42,19 +44,53 @@ const Dashboard = () => {
 
             })
         }
-        loadPatientsInfo();
+        getPatientsInfo();
 
     }, [])
 
+    useEffect(() =>{
+
+        async function getWeekAppointments(){
+            await api.get('/appointments')
+            .then((response) =>{
+
+                const today = new Date();
+                const monday = previousMonday(today)
+                const friday = nextFriday(today)
+                const appointments = response.data
+
+                function checkDate(item){
+                    return parseISO(item.startTime) > monday && parseISO(item.startTime) < friday
+                }
+
+                const filtered = appointments.filter(item => checkDate(item))
+                setWeekAppointments(filtered)
+            })
+
+
+
+        }
+        getWeekAppointments();
+    }, [])
+
+    function toggleSidebar(){
+        
+    }
 
     return (
         <div className='dashboard-container' >
             <div className='left' >
-                <Sidebar />
+
+                <div className='sidebar' >
+                    <Sidebar />
+                </div>
+
+                <FaBars className='bars' size={35} />
+
             </div>
 
             <div className='right' >
-                <h2>Dashboard</h2>
+                <h4>Dashboard  </h4>
                 <Calendar />
                 <History />
             </div>

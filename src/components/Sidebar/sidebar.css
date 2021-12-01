@@ -4,6 +4,23 @@
     min-width: 200px;
     background-color: white;
     box-shadow: 1px 1px 10px #e6e6e6;
+    position: relative;
+    left: -100%
+}
+
+.sidebar-container.active{
+    left: 0
+}
+
+.sidebar-header{
+    display: flex;
+    justify-content: flex-start;
+    gap: 25px;
+}
+
+.sidebar-header svg{
+    margin-top: 10px;
+    margin-left: 5px;
 }
 
 .sidebar-container h2{

@@ -6,7 +6,9 @@ export const dataContext = createContext();
 const ContextProvider = ({children}) => {
 
     const [appointmentsInfo, setAppointmentsInfo] = useState(null)
+    const [weekAppointments, setWeekAppointments] = useState([])
     const [patientsInfo, setPatientsInfo] = useState(null)
+
 
 
     return (
@@ -15,7 +17,9 @@ const ContextProvider = ({children}) => {
             appointmentsInfo,
             setAppointmentsInfo,
             patientsInfo,
-            setPatientsInfo
+            setPatientsInfo,
+            weekAppointments,
+            setWeekAppointments
         }}>
             {children}
         </dataContext.Provider>

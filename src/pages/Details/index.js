@@ -2,8 +2,11 @@ import React, {useEffect, useContext, useState} from 'react'
 import { dataContext } from '../../context';
 import Sidebar from '../../components/Sidebar'
 import PatientCard from '../../components/PatientCard'
+import Tabs from '../../components/Tabs';
 import {useHistory, useParams} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { differenceInYears, parseISO, format } from 'date-fns';
+import {AiOutlineHome} from 'react-icons/ai'
 import './details.css'
 
 const Details = () => {
@@ -47,7 +50,8 @@ const Details = () => {
             </div>
 
             <div className='details-right' >
-                <h2>Details Page</h2>
+
+                <h1>Details Page</h1>
 
                 <div className='patientcard-container' >
                     <PatientCard>
@@ -77,8 +81,10 @@ const Details = () => {
                         </div>
                     </PatientCard>
                 </div>
+                <Tabs />
 
             </div>
+
 
         </div>
     )
