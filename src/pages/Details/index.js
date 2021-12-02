@@ -3,15 +3,13 @@ import { dataContext } from '../../context';
 import Sidebar from '../../components/Sidebar'
 import PatientCard from '../../components/PatientCard'
 import Tabs from '../../components/Tabs';
-import {useHistory, useParams} from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { differenceInYears, parseISO, format } from 'date-fns';
-import {AiOutlineHome} from 'react-icons/ai'
+import {useParams} from 'react-router-dom';
+import { differenceInYears, parseISO} from 'date-fns';
 import './details.css'
 
 const Details = () => {
 
-    const {id} = useParams()
+    const {id} = useParams() // patientId
     const {setPatientsInfo, patientsInfo, appointmentsInfo, setAppointmentsInfo} = useContext(dataContext)
 
     const [patientAppointments, setPatientAppointments] = useState(null)
@@ -60,7 +58,7 @@ const Details = () => {
         )
     }
 
-
+    // In all of this file we're using 'id - 1' because patientId starts in 1 and the array index starts in 0 (for a patientId N we have a N-1 index)
 
     const birthday = parseISO(patientsInfo[id - 1].birthday)
     const age = differenceInYears(new Date(), birthday)

@@ -12,7 +12,7 @@ const History = () => {
     const {appointmentsInfo, patientsInfo} = useContext(dataContext)
 
 
-    if(!appointmentsInfo || !patientsInfo){
+    if(!appointmentsInfo || !patientsInfo){ //waiting for the API to fill the state with information
         return(
             <div>
                 <h1>Loading...</h1>
@@ -36,6 +36,7 @@ const History = () => {
                 </thead>
 
                 <tbody>
+                    
                     {appointmentsInfo.map((item, index) =>{
 
                         const today = new Date()

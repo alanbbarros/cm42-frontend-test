@@ -1,5 +1,5 @@
-import React, {useEffect, useContext, useState} from 'react'
-import { nextFriday, previousMonday, format, parseISO, compareAsc } from 'date-fns'
+import React, {useEffect, useContext} from 'react'
+import { nextFriday, previousMonday, parseISO } from 'date-fns'
 import {FaBars} from 'react-icons/fa'
 import { dataContext } from '../../context'
 import Sidebar from '../../components/Sidebar'
@@ -12,19 +12,19 @@ const Dashboard = () => {
 
     const {appointmentsInfo, setAppointmentsInfo, setPatientsInfo, weekAppointments, setWeekAppointments} = useContext(dataContext);
 
-    useEffect(() =>{
+    useEffect(() =>{ //when component loads, gets the info from all the appointments
 
         async function getAppointmentsInfo(){
             await api.get('/appointments')
             .then((response) =>{
                 const appointments = response.data
-                sortInfoByData(appointments)
+                sortInfoByData(appointments) // to a better display in <History />
                 setAppointmentsInfo(appointments)
                 localStorage.setItem('AppointmentsInfo', JSON.stringify(appointments))
             })
         }
 
-        function sortInfoByData(appointments){ 
+        function sortInfoByData(appointments){
             appointments.sort((a, b) => {
                 return new Date(a.startTime) - new Date(b.startTime)
             })
@@ -34,7 +34,7 @@ const Dashboard = () => {
 
     }, [])
 
-    useEffect(() =>{
+    useEffect(() =>{ //when component loads, gets the info from all the patients
 
         async function getPatientsInfo(){
             await api.get('/patients')
@@ -48,7 +48,7 @@ const Dashboard = () => {
 
     }, [])
 
-    useEffect(() =>{
+    useEffect(() =>{ //when component loads, get all the appointments of the current week
 
         async function getWeekAppointments(){
             await api.get('/appointments')
@@ -66,16 +66,11 @@ const Dashboard = () => {
                 const filtered = appointments.filter(item => checkDate(item))
                 setWeekAppointments(filtered)
             })
-
-
-
         }
+        
         getWeekAppointments();
     }, [])
 
-    function toggleSidebar(){
-        
-    }
 
     return (
         <div className='dashboard-container' >

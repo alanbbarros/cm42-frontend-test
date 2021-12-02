@@ -6,14 +6,16 @@ import './patientlist.css'
 
 const PatientList = () => {
 
-    const {patientsInfo} = useContext(dataContext);
+    const {patientsInfo} = useContext(dataContext); //api.get('/patients')
     const [currentPage, setCurrentPage] = useState(0)
 
-    if(!patientsInfo){
+    if(!patientsInfo){ 
         return(
             <h3>Loading...</h3>
         )
     }
+
+    //variables to manipulate the pagination of the list of patiens at the sidebar
 
     const ITEMS_PER_PAGE = 10
     const pages = Math.ceil(patientsInfo.length / ITEMS_PER_PAGE)
@@ -21,8 +23,6 @@ const PatientList = () => {
     const endIndex = startIndex + ITEMS_PER_PAGE
     const currentItems = patientsInfo.slice(startIndex, endIndex)
 
-
-    
     return (
         <div className='patientlist' >
 

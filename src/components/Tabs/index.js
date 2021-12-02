@@ -1,17 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { format, parseISO, getHours, getMinutes } from 'date-fns'
 import './tabs.css'
 
 const Tabs = ({history, upcoming, recent}) => {
 
-    
-    useEffect(() =>{
-        console.log(recent);
-    }, [])
 
     const [toggleValue, setToggleValue] = useState(1)
 
-    const toggle = (index) => {
+    const toggle = (index) => { //toggle between tags Recent, Upcoming and History
         setToggleValue(index)
     }
 
@@ -27,11 +23,11 @@ const Tabs = ({history, upcoming, recent}) => {
 
             <div className='tabs-body' >
 
-                <div className={toggleValue === 1 ? 'active-content' : 'content'} >
+                <div className={toggleValue === 1 ? 'active-content' : 'content'} > 
                     <table className='details-table' >
                         <tbody>
                         {
-                            recent.map((item, index) =>{
+                            recent.map((item, index) =>{ //first tab
 
                                 let data = parseISO(item.startTime) 
                                 let formatedData = format(data, "MM/dd/yyyy")
@@ -72,7 +68,7 @@ const Tabs = ({history, upcoming, recent}) => {
                 <table className='details-table' >
                     <tbody>
                         {
-                            upcoming.map((item, index) =>{
+                            upcoming.map((item, index) =>{ //second tab
 
                                 let data = parseISO(item.startTime) 
                                 let formatedData = format(data, "MM/dd/yyyy")
@@ -113,7 +109,7 @@ const Tabs = ({history, upcoming, recent}) => {
                     <table className='details-table' >
                         <tbody>
                             {
-                                history.map((item, index) =>{
+                                history.map((item, index) =>{ //third tab
 
                                     let data = parseISO(item.startTime) 
                                     let formatedData = format(data, "MM/dd/yyyy")

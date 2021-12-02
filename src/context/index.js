@@ -1,15 +1,12 @@
-import React, {createContext, useState, useEffect} from 'react';
-import api from '../services/api'
+import React, {createContext, useState} from 'react';
 
 export const dataContext = createContext();
 
 const ContextProvider = ({children}) => {
 
-    const [appointmentsInfo, setAppointmentsInfo] = useState(null)
-    const [weekAppointments, setWeekAppointments] = useState([])
-    const [patientsInfo, setPatientsInfo] = useState(null)
-
-
+    const [appointmentsInfo, setAppointmentsInfo] = useState(null) //All the information received from api.get('/appointments')
+    const [weekAppointments, setWeekAppointments] = useState([])   //All the appointments of the current week (monday to friday)
+    const [patientsInfo, setPatientsInfo] = useState(null)         //All the information received from api.get('/patients')
 
     return (
         <dataContext.Provider
