@@ -11,6 +11,7 @@
     display: block;
     background-color: white;
     height: 500px;
+    padding-top: 50px;
 }
 .tabs-header{
     display: flex;
@@ -49,7 +50,17 @@
     height: 100%;
 }
 
-.patienthistory-container{
+.tab-return{
+    display: flex;
+    justify-content: space-between;
+    background-color: green;
+}
 
+.details-table{
+    padding-top: 10px;
+}
+
+.details-table-row td{
+    text-align: center;
 }
 

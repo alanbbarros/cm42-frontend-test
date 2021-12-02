@@ -16,7 +16,6 @@ const Details = () => {
 
     const [patientAppointments, setPatientAppointments] = useState(null)
     const [patientPastAppointments, setPatientPastAppointments] = useState(null); 
-    const [patientUpcomingAppointments, setPatientUpcomingAppointments] = useState(null);
 
     useEffect(() =>{
 
@@ -44,9 +43,6 @@ const Details = () => {
     
             const history = patientapps.filter(item => (parseISO(item.startTime) < today))
             setPatientPastAppointments(history)
-    
-            const upcoming = patientapps.filter(item => parseISO(item.startTime) > today)
-            setPatientUpcomingAppointments(upcoming)
     
             localStorage.setItem(`Patient ${id} appointment`, JSON.stringify(patientapps))
         }
@@ -110,7 +106,7 @@ const Details = () => {
                         </div>
                     </PatientCard>
                 </div>
-                <Tabs history={patientPastAppointments} upcoming={patientUpcomingAppointments} recent={patientAppointments.slice(0, 3)} />
+                <Tabs history={patientAppointments.filter(item => (parseISO(item.startTime) < new Date()))} upcoming={patientAppointments.filter(item => (parseISO(item.startTime) > new Date()))} recent={patientAppointments.filter(item => parseISO(item.startTime) < new Date()).slice(0, 3)} />
 
             </div>
 
