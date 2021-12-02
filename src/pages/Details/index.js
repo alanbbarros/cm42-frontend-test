@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar'
 import PatientCard from '../../components/PatientCard'
 import Tabs from '../../components/Tabs';
 import {useParams} from 'react-router-dom';
-import { differenceInYears, parseISO} from 'date-fns';
+import { differenceInYears, parseISO, format} from 'date-fns';
 import './details.css'
 
 const Details = () => {
@@ -101,6 +101,7 @@ const Details = () => {
                         <div className='card' >
                             <span>Latest App.</span>
                             <h2> {patientPastAppointments[patientPastAppointments.length-1].specialty} </h2>
+                            <span> {format(parseISO(patientPastAppointments[patientPastAppointments.length-1].startTime), "MM/dd/yyyy")} </span>
                         </div>
                     </PatientCard>
                 </div>
